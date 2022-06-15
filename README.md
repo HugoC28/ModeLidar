@@ -16,10 +16,26 @@
 ## Informatique
 
 ### Système ROS
+  *ROS (Robot Operating Système)* est un ensemble d'outils et de librairies permettant de développer un environnement dédié à la conception de robots. La puissance de cette technologie vient de la grande communauté de développeurs qui améliorent et mettent à jour continuellement la grande variété d'outils Open Source qui composent ROS.
+  
+  Il nous a donc fallu comprendre le fonctionnement de cet outil qui est dans un premier temps assez difficile à appréhender.
+  
+  ROS est basé sur un système de *noeuds*. Chaque élément du robot correspond à un *noeud*, et les *noeuds* communiquent ensuite entre eux. Chaque *noeud* peut publier des messages vers un *topic* ou souscrire à un *topic*. C'est ainsi que les différents *noeuds* communiquent entre eux.
+  
+![image](https://user-images.githubusercontent.com/103205458/173875267-c52c2caa-596b-4210-a816-4c0d5e57705d.png)
+  
+  Dans notre cas, il fallait ainsi créer 2 *noeuds*, l'un pour publier les informations du joystick depuis la Raspberry du pupitre de commande, et l'autre pour souscrire au même *topic* et récupérer ces informations sur la Raspberry de la partie mobile pour commander les moteurs.
+  
+  Pour fonctionner, ROS a besoin qu'un programme nommé *Roscore* soit exécuté. Il doit y avoir un seul *Roscore* pour tout le robot, et il faut ensuite spécifier à chaque *noeud* l'adresse IP du *MASTER* (système sur lequel *Roscore* est exécuté).
 
 
 ### Joystick Miscrosoft SideWinder Force Feedback Pro
 
 
 ### Joystick Raspberry 
+
+![image](https://user-images.githubusercontent.com/103205458/173882049-1ec95fe3-31d3-4c5e-93f1-4d4217272456.png)
+
+
+
 
