@@ -37,13 +37,32 @@
 
 ![joystick_ensea](https://user-images.githubusercontent.com/103205458/173899441-7979b14d-e491-4cc3-a532-80b8bbc70d78.jpg)
 
-  Nous avons trouvé un joystick réalisé précédemment par d'autres étudiants de l'ENSEA. Il est composé de 2 joysticks reliées à une STM32, qui transmet elle-même les informations à une Raspberry Pi 4 via le port série.
+  Nous avons trouvé un joystick réalisé précédemment par d'autres étudiants de l'ENSEA. Il est composé de 2 joysticks reliées à une STM32, qui transmet elle-même les informations à une Raspberry Pi 4 via le port série. La récupération des trames transmises par le port série et leur publication vers le *topic* ROS sont effectués par le programme python [joystick_talker.py](https://github.com/HugoC28/ModeLidar/blob/main/joystick_talker.py). Ces trames sont ensuite reçues par la Raspberry de notre base mobile, et transmises à la STM32 pour la commande des moteurs via le programme [proxy.py](https://github.com/HugoC28/ModeLidar/blob/main/proxy.py). Ces fichiers, ainsi que les fichiers [package.xml](https://github.com/HugoC28/ModeLidar/blob/main/package.xml) et [CMakeLists.txt](https://github.com/HugoC28/ModeLidar/blob/main/CMakeLists.txt) sont à placer dans les dossiers des packages ROS préalablement créés ( *joystick_talker.py* dans le package *ensea_modelidar_joy* sur la Raspberry du joystick et *proxy.py* dans le package *ensea_modelidar_robot* sur la Raspberry de la base mobile).
+  
+  Les extrema de nos joysticks étant différents selon chaque axe, nous avons fait le choix arbitraire de convertir les valeurs de chaque axe en un entier compris entre -100 et +100.
 
 ![schema_structure_ros](https://user-images.githubusercontent.com/103205458/173882049-1ec95fe3-31d3-4c5e-93f1-4d4217272456.png)
 
+  L'éxecution de notre programme n'étant pas encore automatisée, il faut rentrer au démarrage les lignes de codes suivantes, dans 3 terminaux différents, sur la Raspberry du joystick. Ici, l'adresse IP de notre *MASTER* (base mobile) est 192.168.1.6 et celle de notre joystick 192.168.1.4 .
+    
+    //terminal 1
+    ssh 192.168.1.6
+    roscore
+
+    //terminal 2
+    ssh 192.168.1.6
+    export ROS_MASTER_URI=http://192.168.1.6:11311
+    rosrun ensea_modelidar_robot proxy.py
+    
+    //terminal 3
+    export ROS_MASTER_URI=http://192.168.1.6:11311
+    export ROS_IP=192.168.1.4
+    rosrun ensea_modelidar_joy joystick_talker.py
+    
+
+  
 ## Conclusion
 
 ![robot_assemble](https://user-images.githubusercontent.com/103205458/173899096-43156983-8215-45ce-88db-b7e5d52e1cae.jpg)
 
-
-### Remerciements
+  Bien que toutes les parties de notre robot fonctionnaient séparément, nous avons malheureusement manqué de temps pour obtenir un robot fonctionnel. Mise à part ces problèmes au moment de l'assemblage, plusieurs améliorations sont possibles comme l'automatisation du démmarage et de la récupération des trames du LiDAR, ou même l'autonomisation totale du robot qui serait possible grâce au LiDAR.
