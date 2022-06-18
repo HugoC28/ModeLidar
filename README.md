@@ -66,6 +66,3 @@
 ![robot_assemble](https://user-images.githubusercontent.com/103205458/173899096-43156983-8215-45ce-88db-b7e5d52e1cae.jpg)
 
   Bien que toutes les parties de notre robot fonctionnaient séparément, nous avons malheureusement manqué de temps pour obtenir un robot fonctionnel. Mise à part ces problèmes au moment de l'assemblage, plusieurs améliorations sont possibles comme l'automatisation du démarrage et de la récupération des trames du LiDAR, ou même l'autonomisation totale du robot qui serait possible grâce au LiDAR.
-  
-### Remerciements
-  
